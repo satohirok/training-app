@@ -1,24 +1,46 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
 
-* Ruby version
+| Column             | Type                | Options                   |
+|--------------------|---------------------|---------------------------|
+| email              | string              | null: false, unique: true |
+| encrypted_password | string              | null: false               |
+| name               | string              | null: false               |
 
-* System dependencies
+### Association
+has_many :posts
+has_many :comments
 
-* Configuration
+## posts テーブル名
 
-* Database creation
+| Column                | Type                | Options                         |
+|-----------------------|---------------------|---------------------------------|
+| place                 | string              | null: false                     |
+| datetime              | datetime            | null: false                     |
+| count                 | integer             | null: false                     |
+| weight                | integer             | null: false                     |
+| my_weight             | integer             | null: false                     |
+| now_place             | string              | null: false                     |
+| now_datetime          | datetime            | null: false                     |
+| now_count             | integer             | null: false                     |
+| now_weight            | integer             | null: false                     |
+### Association
+belongs_to :user
+has_many :comments
 
-* Database initialization
 
-* How to run the test suite
+## comments テーブル
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+| Column             | Type                | Options                         |
+|--------------------|---------------------|---------------------------------|
+| text               | string              | null: false                     |
+| user_id            | references          | null: false,foreign_key: true   |
+| post_id            | references          | null: false,foreign_key: true   |
 
-* ...
+
+### Association
+belongs_to :post
+belongs_to :user
